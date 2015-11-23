@@ -35,10 +35,17 @@ module.exports.routes = {
   '/': {
     view: 'homepage'
   },
-  'get /explicit': 'QuizController.explicitView',
-  'post /explicit': 'QuizController.explicitAnswer',
-  'get /implicit': 'QuizController.implicitView',
-  'post /implicit': 'QuizController.implicitAnswer'
+  'get  /quiz/explicit': 'QuizController.explicitView',
+  'post /quiz/explicit': 'QuizController.explicitAnswer',
+  'get  /quiz/implicit': 'QuizController.implicitView',
+  'post /quiz/implicit': 'QuizController.implicitAnswer',
+  'get  /quiz/confidence': 'QuizController.confidenceGet',
+  'post /quiz/confidence': 'QuizController.confidencePost',
+  'get  /quiz/iconfidence': 'QuizController.iconfidenceGet',
+  'post /quiz/iconfidence': 'QuizController.iconfidencePost',
+  'get  /quiz/thanks' : {
+    view: 'quiz/thanks'
+  }
 
   /***************************************************************************
   *                                                                          *

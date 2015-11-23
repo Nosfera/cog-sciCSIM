@@ -1,0 +1,25 @@
+<div class="container">
+	<div class="col-md-2 col-md-offset-10">
+		<h2 id="score"><%= score %></h2>
+	</div>
+	<div class="col-md-10 col-md-offset-1" style="margin-top:12%;height:500px;border-radius: 10px;" >
+		<div class="instruction">
+			<h3><%= test.instruction %></h3>
+		</div>
+		<hr>
+		<div class="question">
+			<h4><%= test.question %></h4>
+		</div>
+		<form action="/quiz/explicit" method="POST">
+			<!-- answer options  -->
+			<% for(answer in test.answers){ %>
+				<label>
+					<input type="radio" name="right" value="<% if(test.answers[answer] == test.right_answer){%>True<%}else{ %>False<% } %>"> <%= test.answers[answer] %>
+				</label>
+			<% } %>
+				<input type="hidden" name="rightname" value="<%= test.right_answer %>">
+				<input type="hidden" name="score" value="<%= score %>">
+			<input type="submit" value="Confirmar">
+		</form>
+	</div>
+</div>

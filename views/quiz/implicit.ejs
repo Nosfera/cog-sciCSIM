@@ -1,0 +1,32 @@
+<style type="text/css">
+	body{
+		background-color: <%= color %> ;
+	}
+	.boo{
+		background-color: white;
+	}
+</style>
+
+<div class="container">
+	<div class="col-md-10 col-md-offset-1 boo" style="margin-top:12%;height:500px;border-radius: 10px;" >
+		<div class="instruction">
+			<h3><%= test.instruction %></h3>
+		</div>
+		<hr>
+		<div class="question">
+			<h4><%= test.question %></h4>
+		</div>
+		<form action="/quiz/implicit" method="POST">
+			<!-- answer options  -->
+			<% for(answer in test.answers) { %>
+				<label>
+					<input type="radio" name="right" value="<% if(test.answers[answer] == test.right_answer){%>True<%}else{ %>False<% } %>" ><%= answer %>
+				</label>
+			<% } %>
+			<input type="hidden" name="rightname" value="<%= test.right_answer %>">
+			<input type="submit" value="Confirmar">
+		</form>
+	</div>
+</div>
+
+<!-- if wrong turn body background to red if right to blue -->

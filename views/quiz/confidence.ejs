@@ -1,0 +1,17 @@
+<div class="container">
+	<div class="col-md-2 col-md-offset-10">
+		<h2 id="score"><%= score %></h2>
+	</div>
+	<div class="col-md-10 col-md-offset-1" style="margin-top:12%;height:500px;border-radius: 10px;" >
+		<form action="/quiz/confidence" method="POST">
+			<div class="radio"><label for=""><input type="radio" name="level" >1</label></div>
+			<div class="radio"><label for=""><input type="radio" name="level" >2</label></div>
+			<div class="radio"><label for=""><input type="radio" name="level" >3</label></div>
+			<div class="radio"><label for=""><input type="radio" name="level" >4</label></div>
+			<div class="radio"><label for=""><input type="radio" name="level" >5</label></div>
+			<div class="radio"><label for=""><input type="radio" name="level" >6</label></div>
+			<div class="radio"><label for=""><input type="radio" name="level" >7</label></div>
+			<input type="submit" value="Confirmar">
+		</form>
+	</div>
+</div>
