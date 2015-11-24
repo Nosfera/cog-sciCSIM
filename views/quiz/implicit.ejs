@@ -20,7 +20,7 @@
 			<!-- answer options  -->
 			<% for(answer in test.answers) { %>
 				<label>
-					<input type="radio" name="right" value="<% if(test.answers[answer] == test.right_answer){%>True<%}else{ %>False<% } %>" ><%= test.answers[answer] %>
+					<input type="radio" name="right" value="<% if(test.answers[answer] == test.right_answer){%>True<%}else{ %>False<% } %>" required><%= test.answers[answer] %>
 				</label>
 			<% } %>
 			<input type="hidden" name="mt">
