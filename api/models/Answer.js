@@ -13,6 +13,9 @@ module.exports = {
   	},
   	result: {
   		type: 'string'
+  	},
+  	mouse:{
+  		type: 'json'
   	}
   }
 };

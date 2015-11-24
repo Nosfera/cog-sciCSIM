@@ -1,6 +1,6 @@
 <style type="text/css">
 	body{
-		background-color: <%= color %> ;
+		background-color: rgb(<%= red %>,0,<%= blue %>);
 	}
 	.boo{
 		background-color: white;
@@ -16,13 +16,14 @@
 		<div class="question">
 			<h4><%= test.question %></h4>
 		</div>
-		<form action="/quiz/implicit" method="POST">
+		<form action="/quiz/implicit" method="POST" class="boos">
 			<!-- answer options  -->
 			<% for(answer in test.answers) { %>
 				<label>
-					<input type="radio" name="right" value="<% if(test.answers[answer] == test.right_answer){%>True<%}else{ %>False<% } %>" ><%= answer %>
+					<input type="radio" name="right" value="<% if(test.answers[answer] == test.right_answer){%>True<%}else{ %>False<% } %>" ><%= test.answers[answer] %>
 				</label>
 			<% } %>
+			<input type="hidden" name="mt">
 			<input type="hidden" name="rightname" value="<%= test.right_answer %>">
 			<input type="submit" value="Confirmar">
 		</form>

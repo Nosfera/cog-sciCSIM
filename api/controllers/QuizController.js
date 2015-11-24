@@ -5,7 +5,8 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 var sc = 0;
-var cl = "white";
+var blue = 0;
+var red = 0;
 module.exports = {
 
 	implicitView: function(req,res){
@@ -14,7 +15,8 @@ module.exports = {
 			});
 
 			return res.view('quiz/implicit',{
-				color: cl,
+				red: red,
+				blue: blue,
 				test: found
 			});
 		});	
@@ -32,25 +34,37 @@ module.exports = {
 	implicitAnswer: function(req, res){
 		//cl
 		if(req.param('right') == "True"){
-			cl = "blue";
+			if(blue == 0){
+				red += 4;
+				if(red > 255) red = 255;
+			}else{
+				blue -= 4;
+			}
 		}else{
-			cl = "red";
+			if(red == 0){
+				blue += 4;
+				if(blue > 255) blue = 255;
+			}else{
+				red -= 4;
+			}
 		}
 
-		Answer.create({name: req.param('rightname'), result: req.param('right')}).exec(function(err, created){
+		var zet = JSON.parse(req.param('mt'));
+		Answer.create({name: req.param('rightname'), result: req.param('right'), mouse: zet}).exec(function(err, created){
 			console.log(created);
 		});
 		var count = 0;
 		Test.count({used: 'no'}).exec(function(err, coun){
 			if(err) console.log(err);
-			count = count;
+			count = coun;
+			if(count>0){
+				return res.redirect('quiz/implicit');
+			}else{
+				return res.redirect('quiz/iconfidence');
+			}
 		});
 
-		if(count>0){
-			return res.redirect('quiz/implicit');
-		}else{
-			return res.redirect('quiz/iconfidence');
-		}
+		
 	},
 	explicitAnswer: function(req, res){
 		var score = parseInt(req.param('score'));
@@ -62,21 +76,23 @@ module.exports = {
 			score -= 1;
 		}
 		sc = score;
-		Answer.create({name: req.param('rightname'), result: req.param('right')}).exec(function(err, created){
+		var zet = JSON.parse(req.param('mt'));
+		Answer.create({name: req.param('rightname'), result: req.param('right'), mouse: zet}).exec(function(err, created){
 			console.log(created);
 		});
 
 		var count = 0;
 		Test.count({used: 'no'}).exec(function(err, coun){
 			if(err) console.log(err);
-			count = count;
+			count = coun;
+			if(count>0){
+				return res.redirect('quiz/explicit');
+			}else{
+				return res.redirect('quiz/confidence');
+			}
 		});
 
-		if(count>0){
-			return res.redirect('quiz/explicit');
-		}else{
-			return res.redirect('quiz/confidence');
-		}
+		
 	},
 	confidenceGet: function(req, res){
 		var result = 0;

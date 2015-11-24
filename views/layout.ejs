@@ -95,7 +95,49 @@
     <script src="/js/dependencies/jquery-1.11.3.min.js"></script>
     <!--SCRIPTS END-->
     <script>
-      
+      $(document).ready(function(){
+        var mt = {};
+        $(document).mousemove(function(event){
+          var obj = {};
+          var x = event.pageX;
+          var y = event.pageY;
+          var d = new Date();
+          var t =  d.getTime();
+          var hov = "";
+          $('.instruction').mouseenter(function(e){
+            hov = "Entered Instruction";
+          });
+          $('.instruction').mouseleave(function(e){
+            hov = "Left Instruction";
+          });
+          $('.question').mouseenter(function(e){
+            hov = "Entered Question";
+          });
+          $('.question').mouseleave(function(e){
+            hov = "Left Question";
+          });
+          $('input[type="submit"]').mouseenter(function(e){
+            hov = "Entered Submit";
+          });
+          $('input[type="submit"]').mouseleave(function(e){
+            hov = "Left Submit";
+          });
+          $('label').mouseenter(function(e){
+            hov = "Entered " + e.target.innerText;
+          });
+          $('label').mouseleave(function(e){
+            hov = "Left " + e.target.innerText;
+          });
+          obj.posX = x;
+          obj.posY = y;
+          obj.time = t;
+          obj.hover = hov;
+          mt[t] = obj;
+        });
+        $('.boos').submit(function(event){
+          $('input[name="mt"]').val(JSON.stringify(mt));
+        });
+      });
     </script>
   </body>
 </html>
