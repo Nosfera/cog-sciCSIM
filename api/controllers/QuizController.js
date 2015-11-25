@@ -6,9 +6,23 @@
  */
 var sc = 0;
 var clr = "white";
+var runner = "";
+var testno = "";
+var type = "";
+
 
 module.exports = {
+	setup: function(req,res){
+		runner = req.param('runner');
+		testno = req.param('testno');
+		type = req.param('type');
 
+		if(type == "Explicit"){
+			return res.redirect('quiz/explicit');
+		}else{
+			return res.redirect('quiz/implicit');
+		}
+	},
 	implicitView: function(req,res){
 		Test.findOne({used: "no"},function(err, found){			
 			Test.update(found.id, {used: "yes"}, function(err, test){
@@ -39,7 +53,7 @@ module.exports = {
 		}
 
 		var zet = JSON.parse(req.param('mt'));
-		Answer.create({name: req.param('rightname'), result: req.param('right'), mouse: zet}).exec(function(err, created){
+		Answer.create({name: req.param('rightname'), result: req.param('right'), mouse: zet, testno: testno, runner: runner, type: type}).exec(function(err, created){
 			console.log(created);
 		});
 		var count = 0;
@@ -66,7 +80,7 @@ module.exports = {
 		}
 		sc = score;
 		var zet = JSON.parse(req.param('mt'));
-		Answer.create({name: req.param('rightname'), result: req.param('right'), mouse: zet}).exec(function(err, created){
+		Answer.create({name: req.param('rightname'), result: req.param('right'), mouse: zet, testno: testno, runner: runner, type: type}).exec(function(err, created){
 			console.log(created);
 		});
 
@@ -86,12 +100,12 @@ module.exports = {
 	confidenceGet: function(req, res){
 		var result = 0;
 
-		Answer.count({result: "True"}).exec(function(err,coun){
+		Answer.count({result: "True",testno: testno}).exec(function(err,coun){
 			if(err) console.log(err);
 			console.log(coun);
 			result += coun;
 
-			Answer.count({result: "False"}).exec(function(err,cou){
+			Answer.count({result: "False",testno: testno}).exec(function(err,cou){
 				if(err) console.log(err);
 				console.log(cou);
 				result -= cou;
@@ -104,18 +118,20 @@ module.exports = {
 	},
 	confidencePost: function(req, res){
 		Confidence.create({level: req.param('level')}).exec(function(err, conf){
-			return res.redirect('/quiz/thanks');
+			Test.update({used:"yes"},{used: "no"},function(err, done){
+				return res.redirect('/quiz/thanks');
+			});
 		});
 	},
 	iconfidenceGet: function(req, res){
 		var result = 0;
 
-		Answer.count({result: "True"}).exec(function(err,coun){
+		Answer.count({result: "True",testno: testno}).exec(function(err,coun){
 			if(err) console.log(err);
 			console.log(coun);
 			result += coun;
 
-			Answer.count({result: "False"}).exec(function(err,cou){
+			Answer.count({result: "False", testno: testno}).exec(function(err,cou){
 				if(err) console.log(err);
 				console.log(cou);
 				result -= cou;
@@ -128,7 +144,9 @@ module.exports = {
 	},
 	iconfidencePost: function(req, res){
 		Confidence.create({level: req.param('level')}).exec(function(err, conf){
-			return res.redirect('/quiz/thanks');
+			Test.update({used:"yes"},{used: "no"},function(err, done){
+				return res.redirect('/quiz/thanks');
+			});
 		});
 	}
 };

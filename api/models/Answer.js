@@ -14,9 +14,18 @@ module.exports = {
   	result: {
   		type: 'string'
   	},
-  	mouse:{
+  	mouse: {
   		type: 'json'
-  	}
+  	},
+    runner: {
+      type: 'string'
+    },
+    testno: {
+      type: 'string'
+    },
+    type: {
+      type: 'string'
+    }
   }
 };
 

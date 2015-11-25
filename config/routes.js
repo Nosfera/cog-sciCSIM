@@ -33,8 +33,9 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': {
-    view: 'homepage'
+    view: 'setup'
   },
+  'post /setup' : 'QuizController.setup',
   'get  /quiz/explicit': 'QuizController.explicitView',
   'post /quiz/explicit': 'QuizController.explicitAnswer',
   'get  /quiz/implicit': 'QuizController.implicitView',
@@ -45,7 +46,8 @@ module.exports.routes = {
   'post /quiz/iconfidence': 'QuizController.iconfidencePost',
   'get  /quiz/thanks' : {
     view: 'quiz/thanks'
-  }
+  },
+
 
   /***************************************************************************
   *                                                                          *
