@@ -1,6 +1,21 @@
+<style>
+	.radio{
+		display: inline-block;
+		width: 10%;
+	}
+</style>
+<style>
+	input[type="submit"]{
+		display: block;
+		margin-top: 30px;
+	}
+</style>
 <div class="container">
 	
 	<div class="col-md-10 col-md-offset-1" style="margin-top:12%;height:500px;border-radius: 10px;" >
+		<p> En general, ¿qué tan seguro está de que ha completado las tareas con éxito?</p>
+		<p>1- Nada seguro</p>
+	    <p>7- Totalmente seguro</p>
 		<form action="/quiz/iconfidence" method="POST">
 			<div class="radio"><label for=""><input type="radio" name="level" >1</label></div>
 			<div class="radio"><label for=""><input type="radio" name="level" >2</label></div>

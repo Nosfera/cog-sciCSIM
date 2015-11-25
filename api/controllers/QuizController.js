@@ -5,8 +5,8 @@
  * @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
  */
 var sc = 0;
-var blue = 0;
-var red = 0;
+var clr = "white";
+
 module.exports = {
 
 	implicitView: function(req,res){
@@ -15,8 +15,7 @@ module.exports = {
 			});
 
 			return res.view('quiz/implicit',{
-				red: red,
-				blue: blue,
+				color: clr,
 				test: found
 			});
 		});	
@@ -34,19 +33,9 @@ module.exports = {
 	implicitAnswer: function(req, res){
 		//cl
 		if(req.param('right') == "True"){
-			if(blue == 0){
-				red += 4;
-				if(red > 255) red = 255;
-			}else{
-				blue -= 4;
-			}
+			clr = "blue";
 		}else{
-			if(red == 0){
-				blue += 4;
-				if(blue > 255) blue = 255;
-			}else{
-				red -= 4;
-			}
+			clr = "red";
 		}
 
 		var zet = JSON.parse(req.param('mt'));
